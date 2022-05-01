@@ -52,14 +52,14 @@ public:
     {
         OnStart();
         HandleWarning("App Started.");
-        
+
         while (!glfwWindowShouldClose(m_window))
         {
             glClear(GL_COLOR_BUFFER_BIT);
-            glfwSwapBuffers(m_window);
 
             OnUpdate((float)glfwGetTime());
 
+            glfwSwapBuffers(m_window);
             glfwPollEvents();
         }
 
