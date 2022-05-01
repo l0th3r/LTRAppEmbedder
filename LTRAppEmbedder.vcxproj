@@ -153,6 +153,15 @@
   <ItemGroup>
     <ClCompile Include="src\app.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libraries\include\GLFW\glfw3.h" />
+    <ClInclude Include="libraries\include\GLFW\glfw3native.h" />
+    <ClInclude Include="libraries\include\GL\eglew.h" />
+    <ClInclude Include="libraries\include\GL\glew.h" />
+    <ClInclude Include="libraries\include\GL\glxew.h" />
+    <ClInclude Include="libraries\include\GL\wglew.h" />
+    <ClInclude Include="libraries\include\LTR\ltr_appmbdr_gl.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
