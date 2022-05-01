@@ -42,7 +42,7 @@
     <ClInclude Include="libraries\include\GLFW\glfw3native.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libraries\include\LTR\glapp.h">
+    <ClInclude Include="libraries\include\LTR\ltr_appmbdr_gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

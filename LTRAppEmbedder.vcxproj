@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{ae73062e-c20c-48d5-b4af-194cefe095ff}</ProjectGuid>
-    <RootNamespace>LotherViewer</RootNamespace>
+    <RootNamespace>LTRAppEmbedder</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -164,7 +164,7 @@
     <ClInclude Include="libraries\include\GL\glew.h" />
     <ClInclude Include="libraries\include\GL\glxew.h" />
     <ClInclude Include="libraries\include\GL\wglew.h" />
-    <ClInclude Include="libraries\include\LTR\glapp.h" />
+    <ClInclude Include="libraries\include\LTR\ltr_appmbdr_gl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
