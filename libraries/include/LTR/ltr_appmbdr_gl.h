@@ -26,7 +26,7 @@ public:
         // Generate window
         if (!glfwInit())
         {
-            LogError(-1, "GLFW could not init.");
+            OnLogError(-1, "GLFW could not init.");
             return -1;
         }
 
@@ -34,7 +34,7 @@ public:
         if (!m_Window)
         {
             glfwTerminate();
-            LogError(-1, "GLFW could not create window.");
+            OnLogError(-1, "GLFW could not create window.");
             return -1;
         }
         
@@ -44,7 +44,7 @@ public:
         // Init glew
         if (glewInit() != GLEW_OK)
         {
-            LogError(-1, "GLEW could not init.");
+            OnLogError(-1, "GLEW could not init.");
             return -1;
         }
 
@@ -59,7 +59,7 @@ public:
         
         // Call user start
         OnStart();
-        LogWarning("App Started.");
+        OnLogWarning("App Started.");
 
         // Frame update
         while (!glfwWindowShouldClose(m_Window))
@@ -69,7 +69,7 @@ public:
         }
 
         OnTerminate();
-        LogWarning("App Terminated.");
+        OnLogWarning("App Terminated.");
 
         glfwTerminate();
     }
@@ -89,6 +89,11 @@ private:
         glGenBuffers(1, &buffer);
         glBindBuffer(GL_ARRAY_BUFFER, buffer);
         glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
     void AppFrameUpdate()
     {
@@ -106,18 +111,6 @@ private:
         glfwSwapBuffers(m_Window);
         // Poll for and process events
         glfwPollEvents();
-    }
-    
-    // Local log handle
-    virtual void LogWarning(const char* msg)
-    {
-        if (m_GetWarnings)
-            OnLogWarning(msg);
-    }
-    virtual void LogError(int err, const char* msg)
-    {
-        if (m_GetErrors)
-            OnLogError(err, msg);
     }
 #pragma endregion
 
