@@ -37,7 +37,7 @@ int main(int argc, char** argv)
     Space3D app;
 
     if (!app.ConstructApp())
-        app.Start();
+        app.Run();
 
     std::cin.get();
 
