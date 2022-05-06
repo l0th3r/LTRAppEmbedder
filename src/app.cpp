@@ -1,7 +1,7 @@
 #include <LTR/ltr_mbdr_gl.h>
 #include <iostream>
 
-class Space3D : public LTREmbedderGL
+class Space3D : public LTR_Embedder
 {
 public:
     Space3D()

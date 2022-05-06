@@ -1,6 +1,8 @@
-#include "ltr_mbdr_gl.h"
+#include <LTR/ltr_mbdr_gl.h>
 
-LTREmbedderGL::LTREmbedderGL()
+#pragma region App Base
+
+LTR_Embedder::LTR_Embedder()
 {
     // Initialize default values
     m_Window = NULL;
@@ -8,9 +10,11 @@ LTREmbedderGL::LTREmbedderGL()
     m_AppName = (char*)"New Open GL App";
     m_ScreenWidth = 80;
     m_ScreenHeight = 30;
+
+    m_shader = 0;
 }
 
-int LTREmbedderGL::ConstructApp()
+int LTR_Embedder::ConstructApp()
 {
     // Generate window
     if (!glfwInit())
@@ -40,7 +44,7 @@ int LTREmbedderGL::ConstructApp()
     return 0;
 }
 
-void LTREmbedderGL::Run()
+void LTR_Embedder::Run()
 {
     // Focal app start
     AppStart();
@@ -62,7 +66,13 @@ void LTREmbedderGL::Run()
     glfwTerminate();
 }
 
-void LTREmbedderGL::AppStart()
+LTR_Embedder::~LTR_Embedder()
+{
+}
+
+#pragma endregion
+
+void LTR_Embedder::AppStart()
 {
     float positions[6] = { -0.5f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f };
 
@@ -74,17 +84,39 @@ void LTREmbedderGL::AppStart()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    std::string vertexShader =
+        "#version 330 core\n"
+        "\n"
+        "layout(location = 0) in vec4 position;\n"
+        "\n"
+        "void main()\n"
+        "{\n"
+        "   gl_Position = position;\n"
+        "}\n";
+    std::string fragmentShader =
+        "#version 330 core\n"
+        "\n"
+        "layout(location = 0) out vec4 color;\n"
+        "\n"
+        "void main()\n"
+        "{\n"
+        "   color = vec4(1.0, 0.0, 0.0, 1.0);\n"
+        "}\n";
+
+    unsigned int shader = CreateShader(vertexShader, fragmentShader);
+    glUseProgram(shader);
+
+    OnLogWarning("Shader Compilation done.");
 }
 
-void LTREmbedderGL::AppFrameUpdate()
+void LTR_Embedder::AppFrameUpdate()
 {
     // Clear buffer
     glClear(GL_COLOR_BUFFER_BIT);
-
-
+   
     glDrawArrays(GL_TRIANGLES, 0, 3);
-
 
     // Call user update
     OnUpdate((float)glfwGetTime());
@@ -95,12 +127,49 @@ void LTREmbedderGL::AppFrameUpdate()
     glfwPollEvents();
 }
 
-LTREmbedderGL::~LTREmbedderGL()
+unsigned int LTR_Embedder::CompileShader(unsigned int type, const std::string& source)
 {
-    // Initialize default values
-    m_Window = NULL;
+    unsigned int id = glCreateShader(type);
+    const char* src = &source[0];
+    glShaderSource(id, 1, &src, nullptr);
+    glCompileShader(id);
 
-    m_AppName = (char*)"New Open GL App";
-    m_ScreenWidth = 80;
-    m_ScreenHeight = 30;
+    int result;
+    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+
+    if (result == GL_FALSE)
+    {
+        int length;
+        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+        char* msg = new char[length];
+        glGetShaderInfoLog(id, length, &length, msg);
+
+        OnLogError(0, msg);
+        delete[]msg;
+
+        glDeleteShader(id);
+        return 0;
+    }
+
+    return id;
 }
+unsigned int LTR_Embedder::CreateShader(const std::string& sVertex, const std::string& sFragment)
+{
+    unsigned int program = glCreateProgram();
+    unsigned int sv = CompileShader(GL_VERTEX_SHADER, sVertex);
+    unsigned int sf = CompileShader(GL_FRAGMENT_SHADER, sFragment);
+
+    glAttachShader(program, sv);
+    glAttachShader(program, sf);
+    glLinkProgram(program);
+    glValidateProgram(program);
+
+    glDeleteShader(sv);
+    glDeleteShader(sf);
+
+    return program;
+}
+
+#pragma region Class Static Methods
+
+#pragma endregion
