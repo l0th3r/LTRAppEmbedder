@@ -18,11 +18,11 @@
     <ClCompile Include="src\app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ltr_mbdr_gl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libraries\include\LTR\ltr_appmbdr_gl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="libraries\include\GLFW\glfw3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -41,5 +41,12 @@
     <ClInclude Include="libraries\include\GL\glew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="libraries\include\LTR\ltr_mbdr_gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="libraries\lib\glfw3.lib" />
+    <Library Include="libraries\lib\glew32s.lib" />
   </ItemGroup>
 </Project>
