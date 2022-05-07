@@ -18,7 +18,10 @@
     <ClCompile Include="src\app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ltr_mbdr_gl.cpp">
+    <ClCompile Include="libraries\include\LTR\ltr_mbdr_gl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\include\LTR\ltr_err.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libraries\include\LTR\ltr_mbdr_gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\include\LTR\ltr_err.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

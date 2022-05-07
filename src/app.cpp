@@ -1,7 +1,8 @@
 #include <LTR/ltr_mbdr_gl.h>
 #include <iostream>
+#include <string>
 
-class Space3D : public LTR_Embedder
+class Space3D : public ltr::AppEmbedder
 {
 public:
     Space3D()
@@ -21,13 +22,17 @@ private:
         
     }
 
-    void OnLogWarning(const char* msg)
+    void OnLog(std::string log)
     {
-        std::cerr << m_AppName << " WARNING: " << msg << std::endl;
+        std::cout << log << std::endl;
     }
-    void OnLogError(int err, const char* msg)
+    void OnLogWarning(std::string context, std::string err)
     {
-        std::cerr << m_AppName << " ERR: " << err << " MSG: " << msg << std::endl;
+        std::cout << "=> WARNING by " + context + ", " + err << std::endl;
+    }
+    void OnLogError(std::string context, std::string err)
+    {
+        std::cout << "=> ERROR by " + context + ", " + err << std::endl;
     }
 };
 
