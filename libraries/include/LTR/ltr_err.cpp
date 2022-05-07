@@ -52,15 +52,15 @@ const std::string ltr::ErrCodeToStr(const ErrCode code)
 		break;
 
 	case ErrCode::shader_compilation:
-		return "Shader compilation";
+		return "Compilation";
 		break;
 
 	case ErrCode::shader_compilation_start:
-		return "Shader compilation start";
+		return "Compilation start";
 		break;
 
 	case ErrCode::shader_compilation_done:
-		return "Shader compilation done";
+		return "Compilation done";
 		break;
 
 	// default return raw code
