@@ -30,14 +30,16 @@ namespace ltr
         void AppStart();
         void AppFrameUpdate();
 
-        void ThrowLog(const std::string message);
+        void CompileShaders();
+
+        void ThrowLog(const std::string message, bool newLine = true);
         void ThrowWarning(ErrContext context, ErrCode warning, const std::string log);
         void ThrowWarning(ErrContext context, ErrCode warning);
         void ThrowError(ErrContext context, ErrCode warning, const std::string log);
         void ThrowError(ErrContext context, ErrCode warning);
 
     protected:
-        unsigned int CompileShader(unsigned int type, const std::string& source);
+        unsigned int ParseShader(unsigned int type, const std::string& source);
         unsigned int CreateShader(const std::string& sVertex, const std::string& sFragment);
 #pragma endregion
 

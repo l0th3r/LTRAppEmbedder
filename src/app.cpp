@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+#include <LTR/ltr_file.h>
+
 class Space3D : public ltr::AppEmbedder
 {
 public:

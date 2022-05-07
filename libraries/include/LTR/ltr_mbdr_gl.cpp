@@ -1,5 +1,7 @@
 #include "ltr_mbdr_gl.h"
 
+#include "ltr_file.h"
+
 using namespace ltr;
 
 #pragma region App Base
@@ -16,7 +18,7 @@ AppEmbedder::AppEmbedder()
     m_shader = 0;
 }
 int AppEmbedder::ConstructApp()
-{
+{    
     // Generate window
     if (!glfwInit())
     {
@@ -67,9 +69,12 @@ void AppEmbedder::Run()
 }
 
 #pragma region App Logs
-void AppEmbedder::ThrowLog(const std::string message)
+void AppEmbedder::ThrowLog(const std::string message, bool newLine)
 {
-    OnLog(message);
+    if (newLine)
+        OnLog('\n' + message);
+    else
+        OnLog(message);
 }
 void AppEmbedder::ThrowWarning(ErrContext context, ErrCode warning)
 {
@@ -80,7 +85,7 @@ void AppEmbedder::ThrowWarning(ErrContext context, ErrCode warning, const std::s
 {
     OnLogWarning(ErrContextToStr(context), ErrCodeToStr(warning));
     OnRawWarning(context, warning);
-    ThrowLog(log);
+    ThrowLog(log, false);
 }
 void AppEmbedder::ThrowError(ErrContext context, ErrCode warning)
 {
@@ -91,7 +96,7 @@ void AppEmbedder::ThrowError(ErrContext context, ErrCode warning, const std::str
 {
     OnLogError(ErrContextToStr(context), ErrCodeToStr(warning));
     OnRawError(context, warning);
-    ThrowLog(log);
+    ThrowLog(log, false);
 }
 #pragma endregion
 
@@ -104,7 +109,7 @@ AppEmbedder::~AppEmbedder()
 #pragma region App Runtime
 void AppEmbedder::AppStart()
 {
-    float positions[6] = { -0.2f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f };
+    float positions[6] = { -0.5f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f };
 
     unsigned int buffer;
     glGenBuffers(1, &buffer);
@@ -118,29 +123,7 @@ void AppEmbedder::AppStart()
 
     ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation, "started");
 
-    std::string vertexShader =
-        "#version 330 core\n"
-        "\n"
-        "layout(location = 0) in vec4 position;\n"
-        "\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = position;\n"
-        "}\n";
-    std::string fragmentShader =
-        "#version 330 core\n"
-        "\n"
-        "layout(location = 0) out vec4 color;\n"
-        "\n"
-        "void main()\n"
-        "{\n"
-        "   color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-        "}\n";
-
-    unsigned int shader = CreateShader(vertexShader, fragmentShader);
-    glUseProgram(shader);
-
-    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation, "done with program id: " + shader);
+    CompileShaders();
 }
 
 void AppEmbedder::AppFrameUpdate()
@@ -160,7 +143,17 @@ void AppEmbedder::AppFrameUpdate()
 }
 
 // Shaders
-unsigned int AppEmbedder::CompileShader(unsigned int type, const std::string& source)
+void AppEmbedder::CompileShaders()
+{
+    File vtx("shaders/vertex.shader"), fgmt("shaders/fragment.shader");
+
+    unsigned int shader = CreateShader(vtx.content, fgmt.content);
+    glUseProgram(shader);
+
+    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation, "done");
+}
+
+unsigned int AppEmbedder::ParseShader(unsigned int type, const std::string& source)
 {
     unsigned int id = glCreateShader(type);
     const char* src = &source[0];
@@ -191,8 +184,8 @@ unsigned int AppEmbedder::CompileShader(unsigned int type, const std::string& so
 unsigned int AppEmbedder::CreateShader(const std::string& sVertex, const std::string& sFragment)
 {
     unsigned int program = glCreateProgram();
-    unsigned int sv = CompileShader(GL_VERTEX_SHADER, sVertex);
-    unsigned int sf = CompileShader(GL_FRAGMENT_SHADER, sFragment);
+    unsigned int sv = ParseShader(GL_VERTEX_SHADER, sVertex);
+    unsigned int sf = ParseShader(GL_FRAGMENT_SHADER, sFragment);
 
     glAttachShader(program, sv);
     glAttachShader(program, sf);
