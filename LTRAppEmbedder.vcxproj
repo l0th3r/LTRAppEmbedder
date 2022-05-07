@@ -169,6 +169,10 @@
     <Library Include="libraries\lib\glew32s.lib" />
     <Library Include="libraries\lib\glfw3.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\fragment.shader" />
+    <None Include="src\shaders\vertex.shader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

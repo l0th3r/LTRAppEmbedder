@@ -55,4 +55,8 @@
     <Library Include="libraries\lib\glfw3.lib" />
     <Library Include="libraries\lib\glew32s.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\vertex.shader" />
+    <None Include="src\shaders\fragment.shader" />
+  </ItemGroup>
 </Project>
