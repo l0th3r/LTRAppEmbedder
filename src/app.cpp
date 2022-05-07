@@ -24,15 +24,15 @@ private:
 
     void OnLog(std::string log)
     {
-        std::cout << log << std::endl;
+        std::cout << log;
     }
     void OnLogWarning(std::string context, std::string err)
     {
-        std::cout << "=> WARNING by " + context + ", " + err << std::endl;
+        std::cout << std::endl << "=> WARNING by " + context + ", " + err + " ";
     }
     void OnLogError(std::string context, std::string err)
     {
-        std::cout << "=> ERROR by " + context + ", " + err << std::endl;
+        std::cout << std::endl << "=> ERROR by " + context + ", " + err + " ";
     }
 };
 

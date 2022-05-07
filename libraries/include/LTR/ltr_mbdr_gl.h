@@ -31,7 +31,9 @@ namespace ltr
         void AppFrameUpdate();
 
         void ThrowLog(const std::string message);
+        void ThrowWarning(ErrContext context, ErrCode warning, const std::string log);
         void ThrowWarning(ErrContext context, ErrCode warning);
+        void ThrowError(ErrContext context, ErrCode warning, const std::string log);
         void ThrowError(ErrContext context, ErrCode warning);
 
     protected:

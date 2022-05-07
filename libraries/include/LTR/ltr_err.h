@@ -29,8 +29,6 @@ namespace ltr
 
         shader_parsing = 301,
         shader_compilation = 302,
-        shader_compilation_start = 303,
-        shader_compilation_done = 304,
     };
 
     const std::string ErrContextToStr(const ErrContext context);

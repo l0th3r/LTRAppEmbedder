@@ -77,10 +77,22 @@ void AppEmbedder::ThrowWarning(ErrContext context, ErrCode warning)
     OnLogWarning(ErrContextToStr(context), ErrCodeToStr(warning));
     OnRawWarning(context, warning);
 }
+void AppEmbedder::ThrowWarning(ErrContext context, ErrCode warning, const std::string log)
+{
+    OnLogWarning(ErrContextToStr(context), ErrCodeToStr(warning));
+    OnRawWarning(context, warning);
+    ThrowLog(log);
+}
 void AppEmbedder::ThrowError(ErrContext context, ErrCode warning)
 {
     OnLogError(ErrContextToStr(context), ErrCodeToStr(warning));
     OnRawError(context, warning);
+}
+void AppEmbedder::ThrowError(ErrContext context, ErrCode warning, const std::string log)
+{
+    OnLogError(ErrContextToStr(context), ErrCodeToStr(warning));
+    OnRawError(context, warning);
+    ThrowLog(log);
 }
 
 AppEmbedder::~AppEmbedder()
@@ -104,7 +116,7 @@ void AppEmbedder::AppStart()
 
     //glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation_start);
+    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation, "started");
 
     std::string vertexShader =
         "#version 330 core\n"
@@ -128,7 +140,7 @@ void AppEmbedder::AppStart()
     unsigned int shader = CreateShader(vertexShader, fragmentShader);
     glUseProgram(shader);
 
-    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation_done);
+    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation, "done");
 }
 
 void AppEmbedder::AppFrameUpdate()
