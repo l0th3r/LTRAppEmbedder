@@ -15,6 +15,7 @@ namespace ltr
 #pragma region App Base
     public:
         AppEmbedder();
+        ~AppEmbedder();
 
         // Create window and setup GLFW and GLEW
         int ConstructApp();
@@ -22,7 +23,6 @@ namespace ltr
         // App Runtime Execution
         void Run();
 
-        ~AppEmbedder();
         #pragma endregion
 
 #pragma region App Runtime

@@ -140,7 +140,7 @@ void AppEmbedder::AppStart()
     unsigned int shader = CreateShader(vertexShader, fragmentShader);
     glUseProgram(shader);
 
-    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation, "done");
+    ThrowWarning(ErrContext::Shader, ErrCode::shader_compilation, "done with program id: " + shader);
 }
 
 void AppEmbedder::AppFrameUpdate()
