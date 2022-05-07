@@ -15,7 +15,6 @@ AppEmbedder::AppEmbedder()
 
     m_shader = 0;
 }
-
 int AppEmbedder::ConstructApp()
 {
     // Generate window
@@ -45,7 +44,6 @@ int AppEmbedder::ConstructApp()
 
     return 0;
 }
-
 void AppEmbedder::Run()
 {
     // Focal app start
@@ -53,7 +51,7 @@ void AppEmbedder::Run()
 
     // Call user start
     OnStart();
-    ThrowWarning(ErrContext::App, ErrCode::init);
+    ThrowWarning(ErrContext::App, ErrCode::init, "(app started)");
 
     // Frame update
     while (!glfwWindowShouldClose(m_Window))
@@ -63,11 +61,12 @@ void AppEmbedder::Run()
     }
 
     OnTerminate();
-    ThrowWarning(ErrContext::App, ErrCode::terminate);
+    ThrowWarning(ErrContext::App, ErrCode::terminate, "(app terminated)");
 
     glfwTerminate();
 }
 
+#pragma region App Logs
 void AppEmbedder::ThrowLog(const std::string message)
 {
     OnLog(message);
@@ -94,6 +93,7 @@ void AppEmbedder::ThrowError(ErrContext context, ErrCode warning, const std::str
     OnRawError(context, warning);
     ThrowLog(log);
 }
+#pragma endregion
 
 AppEmbedder::~AppEmbedder()
 {
@@ -104,7 +104,7 @@ AppEmbedder::~AppEmbedder()
 #pragma region App Runtime
 void AppEmbedder::AppStart()
 {
-    float positions[6] = { -0.5f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f };
+    float positions[6] = { -0.2f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f };
 
     unsigned int buffer;
     glGenBuffers(1, &buffer);

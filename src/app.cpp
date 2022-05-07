@@ -28,11 +28,11 @@ private:
     }
     void OnLogWarning(std::string context, std::string err)
     {
-        std::cout << std::endl << "=> WARNING by " + context + ", " + err + " ";
+        std::cout << std::endl << m_AppName << " WARNING by " + context + " when " + err + " ";
     }
     void OnLogError(std::string context, std::string err)
     {
-        std::cout << std::endl << "=> ERROR by " + context + ", " + err + " ";
+        std::cout << std::endl << m_AppName << " ERROR by " + context + " when " + err + " ";
     }
 };
 
@@ -44,6 +44,7 @@ int main(int argc, char** argv)
     if (!app.ConstructApp())
         app.Run();
 
+    std::cout << std::endl << "Press enter to quit: ";
     std::cin.get();
 
     return 0;

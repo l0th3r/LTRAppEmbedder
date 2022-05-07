@@ -30,29 +30,29 @@ const std::string ltr::ErrCodeToStr(const ErrCode code)
 	switch (code)
 	{
 	case ErrCode::no_err:
-		return "Nothing";
+		return "nothing";
 		break;
 
 	case ErrCode::init:
-		return "Initialisation";
+		return "initialisation";
 		break;
 
 	case ErrCode::terminate:
-		return "Terminate";
+		return "terminate";
 		break;
 
 	// > 100 (GLFW)
 	case ErrCode::creating_window:
-		return "Creating window";
+		return "creating window";
 		break;
 
 	// > 300 (Shader)
 	case ErrCode::shader_parsing:
-		return "Shader Parsing";
+		return "parsing";
 		break;
 
 	case ErrCode::shader_compilation:
-		return "Compilation";
+		return "compilation";
 		break;
 
 	// default return raw code
