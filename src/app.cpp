@@ -14,25 +14,25 @@ public:
         m_ScreenWidth = 500;
     }
 private:
-    void OnStart()
+    void OnStart() override
     {
 
     }
 
-    void OnUpdate(float deltaTime)
+    void OnUpdate(float deltaTime) override
     {
-        
+
     }
 
-    void OnLog(std::string log)
+    void OnLog(std::string log) override
     {
         std::cout << log;
     }
-    void OnLogWarning(std::string context, std::string err)
+    void OnLogWarning(std::string context, std::string err) override
     {
         std::cout << std::endl << m_AppName << " WARNING by " + context + " when " + err + " ";
     }
-    void OnLogError(std::string context, std::string err)
+    void OnLogError(std::string context, std::string err) override
     {
         std::cout << std::endl << m_AppName << " ERROR by " + context + " when " + err + " ";
     }
