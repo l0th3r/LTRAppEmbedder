@@ -69,6 +69,10 @@ namespace ltr
         char* m_AppName;
         int m_ScreenWidth;
         int m_ScreenHeight;
+
+        std::string m_shader_vertex_path;
+        std::string m_shader_fragment_path;
+
     private:
         unsigned int m_shader;
 #pragma endregion
