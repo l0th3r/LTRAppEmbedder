@@ -22,6 +22,9 @@ const std::string ltr::ErrContextToStr(const ErrContext context)
 	case ErrContext::Shader:
 		return "Shaders";
 		break;
+	case ErrContext::GL:
+		return "OpenGL";
+		break;
 	}
 }
 
@@ -53,6 +56,11 @@ const std::string ltr::ErrCodeToStr(const ErrCode code)
 
 	case ErrCode::shader_compilation:
 		return "compilation";
+		break;
+
+		// > 400 (OpenGL)
+	case ErrCode::draw:
+		return "drawing";
 		break;
 
 		// default return raw code

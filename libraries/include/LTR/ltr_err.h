@@ -13,7 +13,8 @@ namespace ltr
         App = 1,
         GLFW = 10,
         GLEW = 20,
-        Shader = 30
+        Shader = 30,
+        GL = 40
     };
 
     /// <summary>
@@ -29,6 +30,8 @@ namespace ltr
 
         shader_parsing = 301,
         shader_compilation = 302,
+
+        draw = 401
     };
 
     const std::string ErrContextToStr(const ErrContext context);

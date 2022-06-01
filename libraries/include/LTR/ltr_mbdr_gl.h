@@ -8,6 +8,8 @@
 #include <string>
 #include <iostream>
 
+#define ASSERT(x) if (!(x)) __debugbreak();
+
 namespace ltr
 {
     class AppEmbedder
@@ -41,10 +43,12 @@ namespace ltr
     protected:
         unsigned int ParseShader(unsigned int type, const std::string& source);
         unsigned int CreateShader(const std::string& sVertex, const std::string& sFragment);
+
+        void GLClearErrors();
+        bool GLLogCall();
 #pragma endregion
 
 #pragma region Class Static Methods
-        
 #pragma endregion
 
 #pragma region App Overridable

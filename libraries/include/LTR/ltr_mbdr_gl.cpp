@@ -149,7 +149,9 @@ void AppEmbedder::AppFrameUpdate()
     // Clear buffer
     glClear(GL_COLOR_BUFFER_BIT);
    
+    GLClearErrors();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+    ASSERT(GLLogCall());
 
     // Call user update
     OnUpdate((float)glfwGetTime());
@@ -219,5 +221,20 @@ unsigned int AppEmbedder::CreateShader(const std::string& sVertex, const std::st
 #pragma endregion
 
 #pragma region Class Static Methods
+
+void AppEmbedder::GLClearErrors()
+{
+    while (glGetError() != GL_NO_ERROR) {}
+}
+
+bool AppEmbedder::GLLogCall()
+{
+    while (GLenum err = glGetError())
+    {
+        this->ThrowError(ErrContext::GL, ErrCode::draw,  "GL_ERR(" + std::to_string(err) + ")");
+        return false;
+    }
+    return true;
+}
 
 #pragma endregion
